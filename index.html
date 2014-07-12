@@ -113,11 +113,12 @@
       $(function() {
 
 		$(document).on("mouseover", ".image-over",function() {
-			$(this).children(0).attr("src",$(this).attr("on"));
+			console.log($(this).parent().attr("on"))
+			$(this).attr("src",$(this).parent().attr("on"));
 		})
 
 		$(document).on("mouseleave", ".image-over",function() {
-			$(this).children(0).attr("src",$(this).attr("off"));
+			$(this).attr("src",$(this).parent().attr("off"));
 		})
 
 		// Image 1
@@ -139,11 +140,12 @@
 
 						reader.onload = function(e){
 	                      if ($(".image-over").length > 0) {
-	                      	$(".image-over").attr('on',reader.result)
+	                      	$(".image-over").parent().attr('on',reader.result)
 		                  } else {
 		                  	img = new Image()
 	                      	img.src = reader.result
-		                    div = $('<div class="image-over" on='+ reader.result +'>').append(img)
+	                      	img.className = "image-over"
+		                    div = $('<div on='+ reader.result +'>').append(img)
 		                    $(".result").append(div)
 						  }
 						}
@@ -173,11 +175,12 @@
 
 						reader.onload = function(e){
 	                      if ($(".image-over").length > 0) {
-	                      	$(".image-over").attr('off',reader.result)
+	                      	$(".image-over").parent().attr('off',reader.result)
 		                  } else {
 		                  	img = new Image()
 	                      	img.src = reader.result
-		                    div = $('<div class="image-over" off='+ reader.result +'>').append(img)
+							img.className = "image-over"
+		                    div = $('<div off='+ reader.result +'>').append(img)
 		                    $(".result").append(div)
 						  }
 						}
