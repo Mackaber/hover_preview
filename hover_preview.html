@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<!-- saved from url=(0039)http://getbootstrap.com/examples/cover/ -->
+<html lang="en">
+
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Cover Template for Bootstrap</title>
+
+    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+	<link href="http://cdnjs.cloudflare.com/ajax/libs/dropzone/3.8.4/css/basic.css" rel="stylesheet">
+
+    <!-- Bootstrap core CSS -->
+    <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="http://getbootstrap.com/examples/cover/cover.css" rel="stylesheet">
+
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="./Cover Template for Bootstrap_files/ie-emulation-modes-warning.js"></script>
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="./Cover Template for Bootstrap_files/ie10-viewport-bug-workaround.js"></script>
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  <style id="holderjs-style" type="text/css"></style>
+</head>
+
+  <body>
+
+    <div class="site-wrapper">
+
+      <div class="site-wrapper-inner">
+
+        <div class="cover-container">
+
+          <div class="navbar-fixed-top clearfix">
+            <div class="inner">
+              <h3 class="masthead-brand">Hover Preview</h3>
+              <ul class="nav masthead-nav">
+                <li><a href="http://twitter.com/mackaber">Contact</a></li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="inner cover">
+          	<p style="margin-top:40px">
+          		A tool to help deigners view a preview of "hover" effects
+          	</p>
+            <p class="lead">
+            	<div class="row">
+
+            		<!-- Image 1 -->
+            		<div class="col-sm-6">
+            			<h3>Image 1 (ON)</h3>
+						<form action="http://www.torrentplease.com/dropzone.php" class="dropzone" id="image-dropzone-1">
+					        <div class="dz-message" data-dz-message><span>Drop Image or Click</span></div>
+							<div class="fallback">
+						    	<input name="file" type="file" multiple />
+						  	</div>
+					  	</form>
+					</div>
+
+					<!-- Image 2 -->
+					<div class="col-sm-6">
+						<h3>Image 2 (OFF)</h3>
+						<form action="http://www.torrentplease.com/dropzone.php" class="dropzone" id="image-dropzone-2">
+					        <div class="dz-message" data-dz-message><span>Drop Image or Click</span></div>
+							<div class="fallback">
+						    	<input name="file" type="file" multiple />
+						  	</div>
+					  	</form>
+					</div>
+
+
+					<div class="col-sm-12">
+						<h3>Result</h3>
+						<div class="result">
+						</div>
+					</div>
+			  </div>
+            </p>
+          </div>
+
+<!--           <div class="mastfoot">
+            <div class="inner">
+              <p>Cover template for <a href="http://getbootstrap.com/">Bootstrap</a>, by <a href="https://twitter.com/mdo">@mdo</a>.</p>
+            </div>
+          </div> -->
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+	<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/dropzone/3.8.4/dropzone.min.js"></script>
+	<script type="text/javascript" src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+	    <script type="text/javascript">
+      $(function() {
+
+		$(document).on("mouseover", ".image-over",function() {
+			$(this).children(0).attr("src",$(this).attr("on"));
+		})
+
+		$(document).on("mouseleave", ".image-over",function() {
+			$(this).children(0).attr("src",$(this).attr("off"));
+		})
+
+		// Image 1
+          Dropzone.options.imageDropzone1 = false;
+          Dropzone.options.imageDropzone1 = {
+          	  maxFiles: 1,
+              init: function() {
+
+              	  this.on("addedfile", function() {
+			      	if (this.files[1]!=null){
+			        	this.removeFile(this.files[0]);
+			      	}
+			      });
+
+                  this.on("sending", function(file, responseText) {
+	                    var file = this.files[0];
+						imageType = /image.*/;
+						reader = new FileReader()
+
+						reader.onload = function(e){
+	                      if ($(".image-over").length > 0) {
+	                      	$(".image-over").attr('on',reader.result)
+		                  } else {
+		                  	img = new Image()
+	                      	img.src = reader.result
+		                    div = $('<div class="image-over" on='+ reader.result +'>').append(img)
+		                    $(".result").append(div)
+						  }
+						}
+						reader.readAsDataURL(file);
+
+                  });
+              }
+          };
+
+          // Image 2
+          Dropzone.options.imageDropzone2 = false;
+          Dropzone.options.imageDropzone2 = {
+          	  maxFiles: 1,
+              init: function() {
+
+				  this.on("addedfile", function() {
+			      	if (this.files[1]!=null){
+			        	this.removeFile(this.files[0]);
+			      	}
+			      });
+
+
+                  this.on("sending", function(file, responseText) {
+	                    var file = this.files[0];
+						imageType = /image.*/;
+						reader = new FileReader()
+
+						reader.onload = function(e){
+	                      if ($(".image-over").length > 0) {
+	                      	$(".image-over").attr('off',reader.result)
+		                  } else {
+		                  	img = new Image()
+	                      	img.src = reader.result
+		                    div = $('<div class="image-over" off='+ reader.result +'>').append(img)
+		                    $(".result").append(div)
+						  }
+						}
+						reader.readAsDataURL(file);
+
+                  });
+              }
+          };
+      });
+    </script>
+  </body>
+</html>
